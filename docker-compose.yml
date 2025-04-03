@@ -1,0 +1,32 @@
+#version: '3.8'  # Defines the version of docker-compose
+
+services:
+  springboot-app:
+    build:
+      context: .  # Build the Docker image from the current directory (assumes a Dockerfile is present)
+    image: smoon100h/springboot-shopping-cart:latest  # Optional: name the image
+    ports:
+      - "8080:8080"  # Exposes port 8080 from the container to the host machine
+    depends_on:
+      - mysql  # Ensures that the Spring Boot application waits for MySQL to start before launching
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/dream_shops_db  # Database connection URL
+      SPRING_DATASOURCE_USERNAME: root  # MySQL username
+      SPRING_DATASOURCE_PASSWORD: rootpassword  # MySQL password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update  # Hibernate settings for auto-updating schema (optional)
+
+  mysql:
+    image: mysql:latest  # Official MySQL image
+    container_name: mysql-container-new
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword  # Root password for MySQL
+      MYSQL_DATABASE: dream_shops_db  # Name of the database to be created
+      #MYSQL_USER: root  # Optional: create a user
+      #MYSQL_PASSWORD: rootpassword  # Password for the created user
+    ports:
+      - "3306:3306"  # Exposes port 3306 for MySQL
+    volumes:
+      - mysql-data:/var/lib/mysql  # Persist MySQL data between container restarts
+
+volumes:
+  mysql-data:  # Volume to store MySQL data on the host machine
