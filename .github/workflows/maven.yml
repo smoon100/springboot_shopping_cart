@@ -19,6 +19,17 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:latest
+        env:
+          MYSQl_ROOT_PASSWORD: rootpassword
+          MYSQL_DATABASE: dream_shops_db
+          MYSQL_USER: root
+          MYSQL_PASSWORD: rootpassword
+        ports:
+        - 3306:3306
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up JDK 21
