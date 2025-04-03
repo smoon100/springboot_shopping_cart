@@ -46,7 +46,7 @@ jobs:
   # Set up Docker Compose (to run both Spring Boot and MySQL containers)
     - name: Set up Docker Compose
       run: |
-         docker-compose -f docker-compose.yml up -d  # Start both Spring Boot and MySQL in detached mode
+         docker-compose  up -d  # Start both Spring Boot and MySQL in detached mode
   # Wait for MySQL to be ready
     - name: Wait for MySQL to be ready
       run: |
