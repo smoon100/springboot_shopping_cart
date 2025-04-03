@@ -42,6 +42,15 @@ jobs:
         java-version: '21'
         distribution: 'corretto'
         cache: maven
+
+    # Wait for MySQL to be ready
+    - name: Wait for MySQL to be ready
+      run: |
+             while ! mysqladmin -h127.0.0.1 -uroot -proot ping --silent; do
+               echo "Waiting for MySQL to be ready..."
+               sleep 2
+             done
+
     - name: Build with Maven
       run: mvn clean install
 
