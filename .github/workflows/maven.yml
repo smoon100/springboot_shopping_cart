@@ -43,16 +43,25 @@ jobs:
         distribution: 'corretto'
         cache: maven
 
-    # Wait for MySQL to be ready
-#    - name: Wait for MySQL to be ready
-#      run: |
-#             while ! mysqladmin -h127.0.0.1 -uroot -proot ping --silent; do
-#               echo "Waiting for MySQL to be ready..."
-#               sleep 2
-#             done
+  # Set up Docker Compose (to run both Spring Boot and MySQL containers)
+    - name: Set up Docker Compose
+      run: |
+         docker-compose -f docker-compose.yml up -d  # Start both Spring Boot and MySQL in detached mode
+  # Wait for MySQL to be ready
+    - name: Wait for MySQL to be ready
+      run: |
+             while ! mysqladmin -h127.0.0.1 -uroot -proot ping --silent; do
+               echo "Waiting for MySQL to be ready..."
+               sleep 2
+             done
 
     - name: Build with Maven
       run: mvn clean install
+
+    # Optional: Shut down Docker Compose (cleanup)
+    - name: Clean up Docker Compose
+      run: |
+          docker-compose down
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
