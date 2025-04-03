@@ -91,6 +91,9 @@
 				</configuration>
 			</plugin>
 		</plugins>
+
+		<finalName>springboot-shopping-cart-images</finalName>
+
 	</build>
 
 </project>
