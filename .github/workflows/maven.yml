@@ -44,15 +44,15 @@ jobs:
         cache: maven
 
   # Install Docker Compose
-    - name: Install Docker Compose
-      run: |
-            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-            sudo chmod +x /usr/local/bin/docker-compose
-            docker-compose --version  # Verify that Docker Compose is installed
+#    - name: Install Docker Compose
+#      run: |
+#            sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+#            sudo chmod +x /usr/local/bin/docker-compose
+#            docker-compose --version  # Verify that Docker Compose is installed
   # Set up Docker Compose (to run both Spring Boot and MySQL containers)
-    - name: Set up Docker Compose
-      run: |
-         docker-compose  up -d  # Start both Spring Boot and MySQL in detached mode
+#    - name: Set up Docker Compose
+#      run: |
+#         docker-compose  up -d  # Start both Spring Boot and MySQL in detached mode
   # Wait for MySQL to be ready
     - name: Wait for MySQL to be ready
       run: |
@@ -65,9 +65,9 @@ jobs:
       run: mvn clean install
 
     # Optional: Shut down Docker Compose (cleanup)
-    - name: Clean up Docker Compose
-      run: |
-          docker-compose down
+#    - name: Clean up Docker Compose
+#      run: |
+#          docker-compose down
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
