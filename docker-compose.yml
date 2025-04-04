@@ -4,7 +4,7 @@ services:
   springboot-app:
     build:
       context: .  # Build the Docker image from the current directory (assumes a Dockerfile is present)
-    image: smoon100h/springboot-shopping-cart:latest  # Optional: name the image
+    image: smoon100h/springboot-shopping-cart-images:latest  # Optional: name the image
     ports:
       - "8080:8080"  # Exposes port 8080 from the container to the host machine
     depends_on:
